@@ -17,3 +17,7 @@ db.connect((status) => {
         process.exit();
     }
 });
+
+module.exports = {
+    app
+};

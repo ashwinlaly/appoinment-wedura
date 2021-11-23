@@ -15,10 +15,11 @@ module.exports = (() => {
     userRoutes.post("/signin", [signValidator], userController.SignIn);
     userRoutes.post("/signup", [signupValidator], userController.SignUp);
 
-    userRoutes.use("*", [verifyToken, verifyUser])
+    userRoutes.use("*", [verifyToken, verifyUser]);
     userRoutes.post("/slot/search", userController.searchSlot);
     userRoutes.post("/appointment", userController.createAppointment);
     userRoutes.get("/appointment/history", userController.showBookingHistory);
+    userRoutes.get("/appointment/:id", userController.getAppoinmentData);
     userRoutes.put("/appointment/status/:id", userController.updateAppointmentStatus);
     return userRoutes;
 });

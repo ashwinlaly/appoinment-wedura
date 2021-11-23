@@ -141,7 +141,7 @@ const showBookingHistory = async (request, response) => {
 
 const getAppoinmentData = async (request, response) => {
     const user_id = Mongoose.Types.ObjectId(request.user_id);
-    const slot_id = Mongoose.Types.ObjectId(request.body.slot_id);
+    const slot_id = Mongoose.Types.ObjectId(request.params.id);
     const data = await UserBooking.aggregate([
         { $match: {user_id, slot_id}},
         { $lookup: {
@@ -161,13 +161,13 @@ const getAppoinmentData = async (request, response) => {
             'slot_information.email': 1, 
             'slot_information.phone': 1
         } }
-      ]).exec();
+    ]).exec();
+    const count = await UserBooking.findOne({user_id}).count();
     if(_.isEmpty(data)) {
         return response.status(202).json({code: 202, message: "No Booking Done"});
     } else {
-        return response.status(200).json({data, code: 200, message: "Booking data"});
+        return response.status(200).json({data, count, code: 200, message: "Booking data"});
     }
-    // userBookingHistory
 };
 
 const updateAppointmentStatus = async (request, response) => {
@@ -182,7 +182,7 @@ const updateAppointmentStatus = async (request, response) => {
     }
 };
 
-const userBookingHistory = (user_id, company_id) => {
+const userBookingHistory = async (user_id, company_id) => {
     const data = await UserBooking.aggregate([
         { $match: {user_id, company_id}},
         { $lookup: {
@@ -210,6 +210,7 @@ module.exports = {
     SignIn,
     SignUp,
     searchSlot,
+    getAppoinmentData,
     createAppointment,
     showBookingHistory,
     updateAppointmentStatus
