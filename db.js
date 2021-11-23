@@ -7,9 +7,9 @@ const Constant = require("./constant");
 module.exports = {
     connect: (callback) => {
         try {
-            Mongoose.connect(Config.db.url, Config.db.mongoose, (err, connection) => {
-                if(err) {
-                    console.log("Database Error...", err);
+            Mongoose.connect(Config.db.url, Config.db.mongoose, (error, connection) => {
+                if(error) {
+                    console.log("Database Error...", error);
                     callback(Constant.CONNETION_ERROR);
                 } else {
                     _db = connection;
@@ -18,7 +18,7 @@ module.exports = {
                 }
             });
         } catch(error) {
-            console.log("Database Error...", err);
+            console.log("Database Error...", error);
             callback(Constant.CONNETION_ERROR);
         }  
     },
