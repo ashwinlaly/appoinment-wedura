@@ -12,6 +12,7 @@ db.connect((status) => {
     if(Constant.CONNETION_SUCCESS === status) {
         app.listen(PORT, () => {
             console.log(`Application started, running on port - ${PORT}`);
+            app.emit("server_init");
         });
     } else {
         process.exit();

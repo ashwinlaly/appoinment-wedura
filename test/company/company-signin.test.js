@@ -63,7 +63,7 @@ describe("Company Signin -> ", () => {
 
     it("Submit sign in with correct post data", (done) => {
         let data = {
-            email: "company@test.com", 
+            email: "yoga@test.com",
             password: "12345678"
         };
         chai.request(server)

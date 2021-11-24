@@ -1,5 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const axios = require("axios").default;
 const { app: server } = require('../../index');
 const should = chai.should();
 
@@ -63,7 +64,7 @@ describe("User Signin -> ", () => {
 
     it("Submit sign in with correct post data", (done) => {
         let data = {
-            email: "user1@test.com", 
+            email: "user2@test.com", 
             password: "12345678"
         };
         chai.request(server)
